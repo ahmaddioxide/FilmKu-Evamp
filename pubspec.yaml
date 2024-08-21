@@ -25,8 +25,16 @@ dependencies:
   flutter_dotenv: ^5.1.0
   youtube_player_flutter: ^9.0.3
 
+  #DB
+  hive_flutter: ^1.1.0
+
   # Image
   cached_network_image: ^3.4.1
+
+  #connevtivity
+  connectivity_plus: ^6.0.5
+  flutter_cache_manager: ^3.4.1
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
@@ -40,4 +48,5 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/icons/
 
