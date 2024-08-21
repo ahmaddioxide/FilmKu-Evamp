@@ -7,6 +7,7 @@ import 'package:filmku/components/movie_tile.dart';
 import 'package:filmku/features/home/components/see_more_button.dart';
 import 'package:filmku/features/home/controller/popular_movies_controller.dart';
 import 'package:filmku/features/home/controller/upcoming_movies_controller.dart';
+import 'package:filmku/features/movie_details/view/movie_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -115,8 +116,14 @@ class HomeScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: MovieCard(
-                              movie: movies[index],
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.to(() =>
+                                    MovieDetailsScreen(id: movies[index].id));
+                              },
+                              child: MovieCard(
+                                movie: movies[index],
+                              ),
                             ),
                           );
                         });
@@ -177,10 +184,16 @@ class HomeScreen extends StatelessWidget {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return  Padding(
+                        return Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: MovieTile(
-                            movie: movies[index],
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.to(() =>
+                                  MovieDetailsScreen(id: movies[index].id));
+                            },
+                            child: MovieTile(
+                              movie: movies[index],
+                            ),
                           ),
                         );
                       });

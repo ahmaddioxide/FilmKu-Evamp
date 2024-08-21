@@ -7,7 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:filmku/config/theme/theme.dart';
 import 'package:filmku/constants/strings.dart';
 import 'package:filmku/core/repositories/upcoming_movies_repo.dart';
-import 'package:filmku/features/bottom_navigation/navigation_screen.dart';
+import 'package:filmku/features/bottom_navigation/view/navigation_screen.dart';
 import 'features/bottom_navigation/controller/navigation_controller.dart';
 import 'features/home/controller/upcoming_movies_controller.dart';
 

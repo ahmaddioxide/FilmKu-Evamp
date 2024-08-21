@@ -1,8 +1,8 @@
 import 'package:filmku/core/utilities/size_utils.dart';
-import 'package:filmku/features/booking/booking_screen.dart';
-import 'package:filmku/features/bookmarking/bookmarking_screen.dart';
+import 'package:filmku/features/booking/view/booking_screen.dart';
+import 'package:filmku/features/bookmarking/view/bookmarking_screen.dart';
 import 'package:filmku/features/bottom_navigation/components/bottom_bar.dart';
-import 'package:filmku/features/home/home_screen.dart';
+import 'package:filmku/features/home/view/home_screen.dart';
 import 'package:filmku/features/bottom_navigation/controller/navigation_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
