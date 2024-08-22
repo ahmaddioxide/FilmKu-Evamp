@@ -1,5 +1,5 @@
 import 'package:filmku/core/models/trending_movies.dart';
-import 'package:filmku/services/API_client.dart';
+import 'package:filmku/services/api_client.dart';
 
 abstract class TrendingMoviesRepo {
   Future<TrendingMoviesResponse> getTrendingMoviesResponse([int page = 1]);

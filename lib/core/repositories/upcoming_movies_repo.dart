@@ -1,7 +1,7 @@
 
 
 import 'package:filmku/core/models/upcoming_movies.dart';
-import 'package:filmku/services/API_client.dart';
+import 'package:filmku/services/api_client.dart';
 
 abstract class UpcomingMoviesRepo {
   Future<UpcomingMoviesResponse> getUpcomingMoviesResponse([int page = 1]);

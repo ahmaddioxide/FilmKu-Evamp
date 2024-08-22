@@ -31,6 +31,7 @@ class CacheableBaseClient {
         final response = await http
             .get(Uri.parse(url))
             .timeout(const Duration(seconds: timeOutDuration));
+        // print('!!!! API RESPONSE' + response.body);
         final data = _processResponse(response);
 
         // Update Hive with new data
@@ -48,8 +49,8 @@ class CacheableBaseClient {
   }
 
   dynamic _processResponse(
-      http.Response response,
-      ) {
+    http.Response response,
+  ) {
     switch (response.statusCode) {
       case 200:
         final responseJson = utf8.decode(response.bodyBytes);

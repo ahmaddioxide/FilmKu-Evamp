@@ -1,4 +1,3 @@
-import 'package:filmku/config/theme/theme.dart';
 import 'package:filmku/features/bottom_navigation/controller/navigation_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

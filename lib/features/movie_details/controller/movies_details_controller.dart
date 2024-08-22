@@ -1,6 +1,6 @@
 import 'package:filmku/core/models/movie_credits_response_model.dart';
 import 'package:filmku/core/models/movie_model.dart';
-import 'package:filmku/core/repositories/MovieDetailsRepo.dart';
+import 'package:filmku/core/repositories/movie_details_repo.dart';
 import 'package:get/get.dart';
 
 

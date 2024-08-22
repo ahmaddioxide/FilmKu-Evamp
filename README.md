@@ -2,7 +2,6 @@
 
 Movie App using TMDB
 
-e
 ## Features
 
 - [x] List of Movies
@@ -10,3 +9,27 @@ e
 - [x] List of Popular Movies
 - [x] Details of Movie
 - [x] Offline Mode
+
+
+
+## Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone 
+   cd filmku
+   ```
+
+2. **Install dependencies:**
+   ```bash
+    flutter pub get
+   ```
+
+3. **Run the app:**
+   ```bash
+    flutter run
+    ```
+
+## Configuration
+- **TMDB_KEY:** Add your API key in the .env file to fetch data from The Movie Db API.
+- **BASEURL:** Add your base URL in the .env file for TMDB API.

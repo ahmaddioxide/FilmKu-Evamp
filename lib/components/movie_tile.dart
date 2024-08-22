@@ -3,12 +3,10 @@ import 'package:filmku/components/genre_chip.dart';
 import 'package:filmku/config/theme/theme.dart';
 import 'package:filmku/core/models/movie_model.dart';
 import 'package:filmku/core/utilities/movie_runtime.dart';
-import 'package:filmku/core/utilities/process_genre_list.dart';
 import 'package:filmku/core/utilities/process_image_link.dart';
 import 'package:filmku/core/utilities/size_utils.dart';
 import 'package:flutter/material.dart';
 
-import '../core/models/genre_model.dart';
 import '../core/utilities/process_genre_code.dart';
 
 class MovieTile extends StatelessWidget {

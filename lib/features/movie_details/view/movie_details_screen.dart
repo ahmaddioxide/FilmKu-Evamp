@@ -6,8 +6,6 @@ import 'package:filmku/core/helpers/custom_cache_manager.dart';
 import 'package:filmku/core/models/movie_model.dart';
 import 'package:filmku/core/utilities/custom_snackbar.dart';
 import 'package:filmku/core/utilities/movie_runtime.dart';
-import 'package:filmku/core/utilities/process_genre_code.dart';
-import 'package:filmku/core/utilities/process_genre_list.dart';
 import 'package:filmku/core/utilities/process_image_link.dart';
 import 'package:filmku/core/utilities/size_utils.dart';
 import 'package:filmku/features/home/components/see_more_button.dart';
@@ -331,7 +329,7 @@ class MovieTrailer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<MovieDetailsController>();
-    final YoutubePlayerController _controller = YoutubePlayerController(
+    final YoutubePlayerController ytController = YoutubePlayerController(
       initialVideoId: controller.trailerYouTubeID.value,
     );
 
@@ -342,7 +340,7 @@ class MovieTrailer extends StatelessWidget {
           if (controller.trailerYouTubeID.value == '') {
             customSnackBar(message: 'No trailer available');
           } else {
-            showMovieTrailerDialog(context, _controller);
+            showMovieTrailerDialog(context, ytController);
           }
         },
         child: Center(
@@ -396,9 +394,9 @@ class MovieTrailer extends StatelessWidget {
   }
 
   void showMovieTrailerDialog(
-      BuildContext context, YoutubePlayerController _controller) {
-    _controller = YoutubePlayerController(
-      initialVideoId: _controller.initialVideoId,
+      BuildContext context, YoutubePlayerController ytController) {
+    ytController = YoutubePlayerController(
+      initialVideoId: ytController.initialVideoId,
       flags: const YoutubePlayerFlags(
         autoPlay: true,
         mute: false,
@@ -413,7 +411,7 @@ class MovieTrailer extends StatelessWidget {
           insetPadding: const EdgeInsets.all(10),
           backgroundColor: Colors.transparent,
           content: YoutubePlayer(
-            controller: _controller,
+            controller: ytController,
             showVideoProgressIndicator: true,
             progressIndicatorColor: AppColors.darkPurple,
             progressColors: const ProgressBarColors(

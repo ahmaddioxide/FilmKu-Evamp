@@ -7,5 +7,4 @@ class ConnectivityManager{
     return connectivityResult.first == ConnectivityResult.none ? false : true;
   }
 
-
 }

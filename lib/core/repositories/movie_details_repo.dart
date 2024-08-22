@@ -1,6 +1,6 @@
 import 'package:filmku/core/models/movie_credits_response_model.dart';
 import 'package:filmku/core/models/movie_model.dart';
-import 'package:filmku/services/API_client.dart';
+import 'package:filmku/services/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -27,9 +27,8 @@ class HttpMovieDetails implements MovieDetailsRepo {
   Future<String> getMovieTrailer(int id) async {
     final String uri = '/movie/${id.toString()}/videos?language=en-US';
     final Map<String, dynamic> response = await CacheableBaseClient().get(uri);
-    Get.log('!!!! fetch' + response.toString());
+    Get.log('!!!! fetch$response');
 
-    // Extract the trailer link from the response
     final List<dynamic> results = response['results'];
     for (var result in results) {
       if (result['type'] == 'Trailer' && result['site'] == 'YouTube') {
