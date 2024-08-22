@@ -12,7 +12,7 @@ Movie App using TMDB
 
 ## Video Demo
 
-[![Watch the Demo video]](https://drive.google.com/file/d/1_LDcVaKdp3n-72fGk11RSGRZbbpTRtEY/view?usp=sharing)
+[[Watch the Demo video]](https://drive.google.com/file/d/1_LDcVaKdp3n-72fGk11RSGRZbbpTRtEY/view?usp=sharing)
 
 
 ## Installation
