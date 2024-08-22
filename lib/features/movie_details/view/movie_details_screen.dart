@@ -1,13 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:filmku/components/genre_chip.dart';
 import 'package:filmku/config/theme/theme.dart';
+import 'package:filmku/constants/assets.dart';
 import 'package:filmku/core/helpers/custom_cache_manager.dart';
 import 'package:filmku/core/models/movie_model.dart';
 import 'package:filmku/core/utilities/custom_snackbar.dart';
+import 'package:filmku/core/utilities/movie_runtime.dart';
+import 'package:filmku/core/utilities/process_genre_code.dart';
+import 'package:filmku/core/utilities/process_genre_list.dart';
 import 'package:filmku/core/utilities/process_image_link.dart';
 import 'package:filmku/core/utilities/size_utils.dart';
+import 'package:filmku/features/home/components/see_more_button.dart';
+import 'package:filmku/features/movie_details/components/cast_widget.dart';
 import 'package:filmku/features/movie_details/controller/movies_details_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
@@ -25,7 +33,9 @@ class MovieDetailsScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(AppColors.darkPurple),
+              ),
             );
           } else if (snapshot.hasError) {
             return const Center(
@@ -43,7 +53,10 @@ class MovieDetailsScreen extends StatelessWidget {
             return CustomScrollView(
               slivers: [
                 SliverAppBar(
-                  expandedHeight: 200,
+                  actions: [
+                    IconButton(onPressed: () {}, icon: Image.asset(kUnionIcon))
+                  ],
+                  expandedHeight: 260,
                   pinned: true,
                   flexibleSpace: FlexibleSpaceBar(
                     background: MovieTrailer(
@@ -56,7 +69,7 @@ class MovieDetailsScreen extends StatelessWidget {
                   delegate: SliverChildListDelegate(
                     [
                       Container(
-                        height: DeviceUtils.getHeight(context),
+                        height: DeviceUtils.getHeight(context) * 0.8,
                         width: DeviceUtils.getWidth(context),
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
@@ -64,11 +77,237 @@ class MovieDetailsScreen extends StatelessWidget {
                             topRight: Radius.circular(50),
                           ),
                         ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: SizedBox(
+                                      width:
+                                          DeviceUtils.getWidth(context) * 0.7,
+                                      child: Text(
+                                        movieDetails.title,
+                                        style: const TextStyle(
+                                          color: AppColors.black,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      customSnackBar(
+                                          message: 'Feature not available yet');
+                                    },
+                                    icon: const Icon(
+                                      Icons.bookmark_border_rounded,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.star,
+                                    color: AppColors.orange,
+                                    size: 20,
+                                  ),
+                                  Text(
+                                    '${movieDetails.voteAverage.toStringAsFixed(1)}/10 IMDb',
+                                    style: const TextStyle(
+                                      color: AppColors.lightGrey,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
 
-                        child: Column(
-                          children: [
+                              const SizedBox(
+                                height: 12,
+                              ),
+                              //GenreCars
+                              SizedBox(
+                                height: 28,
+                                width: DeviceUtils.getWidth(context),
+                                child: ListView.builder(
+                                  itemCount: movieDetails.genres?.length ?? 0,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return GenreChip(
+                                      genre:
+                                          '${movieDetails.genres?[index].name}',
+                                    );
+                                  },
+                                ),
+                              ),
 
-                          ],
+                              const SizedBox(
+                                height: 12,
+                              ),
+
+                              Row(
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        'Length',
+                                        style: TextStyle(
+                                          color: AppColors.lightGrey,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 4,
+                                      ),
+                                      Text(
+                                        MovieRuntime.displayMovieRuntime(
+                                            movieDetails.runtime),
+                                        style: const TextStyle(
+                                          color: AppColors.black,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    width: 50,
+                                  ),
+                                  const Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Language',
+                                        style: TextStyle(
+                                          color: AppColors.lightGrey,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 4,
+                                      ),
+                                      Text(
+                                        'English',
+                                        style: TextStyle(
+                                          color: AppColors.black,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    width: 50,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        'Rating',
+                                        style: TextStyle(
+                                          color: AppColors.lightGrey,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 4,
+                                      ),
+                                      Text(
+                                        movieDetails.adult ? '18+' : 'PG-13',
+                                        style: const TextStyle(
+                                          color: AppColors.black,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              Text(
+                                'Description',
+                                style: GoogleFonts.merriweather(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 6,
+                              ),
+                              Text(
+                                movieDetails.overview,
+                                style: const TextStyle(
+                                  color: AppColors.lightGrey,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Cast',
+                                    style: GoogleFonts.merriweather(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  SeeMoreButton(onPressed: () {})
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 6,
+                              ),
+                              SizedBox(
+                                height: 200,
+                                width: DeviceUtils.getWidth(context),
+                                child: ListView.builder(
+                                  itemCount: controller
+                                          .movieCreditsResponse?.cast.length ??
+                                      0,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 8.0),
+                                        child: CastWidget(
+                                          cast: controller.movieCreditsResponse!
+                                              .cast[index],
+                                        ));
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -83,39 +322,27 @@ class MovieDetailsScreen extends StatelessWidget {
   }
 }
 
-class MovieTrailer extends StatefulWidget {
+class MovieTrailer extends StatelessWidget {
   final String movieID;
   final Movie movie;
 
   const MovieTrailer({super.key, required this.movieID, required this.movie});
 
   @override
-  State<MovieTrailer> createState() => _MovieTrailerState();
-}
-
-class _MovieTrailerState extends State<MovieTrailer> {
-  late YoutubePlayerController _controller;
-  final controller = Get.find<MovieDetailsController>();
-
-  @override
-  initState() {
-    _controller = YoutubePlayerController(
+  Widget build(BuildContext context) {
+    final controller = Get.find<MovieDetailsController>();
+    final YoutubePlayerController _controller = YoutubePlayerController(
       initialVideoId: controller.trailerYouTubeID.value,
     );
-    super.initState();
-  }
 
-  @override
-  Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      // height: MediaQuery.of(context).size.height * 0.5,
       child: GestureDetector(
         onTap: () async {
           if (controller.trailerYouTubeID.value == '') {
             customSnackBar(message: 'No trailer available');
           } else {
-            showMovieTrailerDialog(context);
+            showMovieTrailerDialog(context, _controller);
           }
         },
         child: Center(
@@ -125,10 +352,13 @@ class _MovieTrailerState extends State<MovieTrailer> {
                 top: 0,
                 child: CachedNetworkImage(
                   imageUrl: ProcessImage.processPosterLink(
-                    widget.movie.backdropPath ?? widget.movie.posterPath,
+                    movie.backdropPath ?? movie.posterPath,
                   ),
                   placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(AppColors.darkPurple),
+                    ),
                   ),
                   height: 300,
                   errorWidget: (context, url, error) => const Icon(Icons.error),
@@ -165,9 +395,10 @@ class _MovieTrailerState extends State<MovieTrailer> {
     );
   }
 
-  void showMovieTrailerDialog(BuildContext context) {
+  void showMovieTrailerDialog(
+      BuildContext context, YoutubePlayerController _controller) {
     _controller = YoutubePlayerController(
-      initialVideoId: controller.trailerYouTubeID.value,
+      initialVideoId: _controller.initialVideoId,
       flags: const YoutubePlayerFlags(
         autoPlay: true,
         mute: false,
@@ -204,7 +435,6 @@ class _MovieTrailerState extends State<MovieTrailer> {
                 ),
               ),
               PlaybackSpeedButton(),
-              // FullScreenButton(),
             ],
           ),
           actions: <Widget>[
@@ -230,12 +460,5 @@ class _MovieTrailerState extends State<MovieTrailer> {
         );
       },
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    controller.onClose();
-    _controller.dispose();
   }
 }

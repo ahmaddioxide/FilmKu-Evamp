@@ -24,18 +24,31 @@ class MovieTile extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: CachedNetworkImage(
-              imageUrl: ProcessImage.processPosterLink(movie.posterPath),
-              width: 120,
-              height: 180,
-              placeholder: (context, url) => const Center(
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(18),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: const Offset(0, 3),
                 ),
+              ],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: CachedNetworkImage(
+                imageUrl: ProcessImage.processPosterLink(movie.posterPath),
+                width: 120,
+                height: 180,
+                placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                  ),
+                ),
+                fit: BoxFit.cover,
               ),
-              fit: BoxFit.cover,
             ),
           ),
           const SizedBox(width: 10),
@@ -80,8 +93,8 @@ class MovieTile extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               SizedBox(
-                height: 30,
-                width: DeviceUtils.getWidth(context) - 200,
+                height: 26,
+                width: DeviceUtils.getWidth(context) - 180,
                 child: ListView.builder(
                   itemCount: movie.genreIds?.length ?? 0,
                   shrinkWrap: true,

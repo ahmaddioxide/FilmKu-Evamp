@@ -8,4 +8,5 @@ e
 - [x] List of Movies
 - [x] List of Upcoming Movies
 - [x] List of Popular Movies
-- [x] Detail Movie
+- [x] Details of Movie
+- [x] Offline Mode

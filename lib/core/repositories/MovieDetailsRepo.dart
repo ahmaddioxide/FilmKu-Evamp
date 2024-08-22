@@ -1,3 +1,4 @@
+import 'package:filmku/core/models/movie_credits_response_model.dart';
 import 'package:filmku/core/models/movie_model.dart';
 import 'package:filmku/services/API_client.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,8 @@ abstract class MovieDetailsRepo {
   Future<Movie> getMovieDetails(int id);
 
   Future<String> getMovieTrailer(int id);
+
+  Future<MovieCreditsResponse> getMovieCredits(int movieId);
 }
 
 class HttpMovieDetails implements MovieDetailsRepo {
@@ -35,5 +38,14 @@ class HttpMovieDetails implements MovieDetailsRepo {
       }
     }
     return '';
+  }
+
+  @override
+  Future<MovieCreditsResponse> getMovieCredits(int movieId) async {
+    MovieCreditsResponse movieCreditsResponse;
+    final String uri = '/movie/${movieId.toString()}/credits?language=en-US';
+    final Map<String, dynamic> response = await CacheableBaseClient().get(uri);
+    movieCreditsResponse = MovieCreditsResponse.fromJson(response);
+    return movieCreditsResponse;
   }
 }

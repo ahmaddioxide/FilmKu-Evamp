@@ -1,7 +1,7 @@
 class ProcessImage {
   static String processImageLink(link) {
     if (link == null) {
-      return 'https://i0.wp.com/www.dobitaobyte.com.br/wp-content/uploads/2016/02/no_image.png?ssl=1';
+      return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9dB5ERe0v9QUXux7rr6TnHW9nNlvmZpWqqA&s';
     }
 
     return 'https://image.tmdb.org/t/p/w500$link'.toString();

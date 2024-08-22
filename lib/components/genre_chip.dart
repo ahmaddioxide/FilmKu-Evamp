@@ -19,7 +19,7 @@ class GenreChip extends StatelessWidget {
         genre,
         style: const TextStyle(
           color: AppColors.darkPurple,
-          fontSize: 12,
+          fontSize: 10,
           fontWeight: FontWeight.w400,
         ),
       ),
