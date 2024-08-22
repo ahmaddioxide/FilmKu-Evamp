@@ -3,8 +3,6 @@ import 'package:filmku/core/models/movie_model.dart';
 import 'package:filmku/core/repositories/movie_details_repo.dart';
 import 'package:get/get.dart';
 
-
-
 class MovieDetailsController extends GetxController {
   RxInt categoryIndex = 0.obs;
   RxString category = "About Movie".obs;
@@ -26,7 +24,7 @@ class MovieDetailsController extends GetxController {
     try {
       String trailer = await _movieDetailsRepo.getMovieTrailer(id);
       trailerYouTubeID.value = trailer;
-      movieCreditsResponse= await _movieDetailsRepo.getMovieCredits(id);
+      movieCreditsResponse = await _movieDetailsRepo.getMovieCredits(id);
       return await _movieDetailsRepo.getMovieDetails(id);
     } catch (e) {
       rethrow;

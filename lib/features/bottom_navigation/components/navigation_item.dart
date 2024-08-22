@@ -14,23 +14,23 @@ class NavigationItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final NavigationController navigationController = Get.find<NavigationController>();
+    final NavigationController navigationController =
+        Get.find<NavigationController>();
 
     return GestureDetector(
       onTap: () {
         navigationController.selectedIndex.value = index;
       },
-      child:
-      Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              icon,
-              height: 40.0,
-            ),
-            const SizedBox(height: 4.0),
-          ],
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            icon,
+            height: 40.0,
+          ),
+          const SizedBox(height: 4.0),
+        ],
+      ),
     );
   }
 }
