@@ -14,6 +14,12 @@ Movie App using TMDB
 
 [[Watch the Demo video]](https://drive.google.com/file/d/1_LDcVaKdp3n-72fGk11RSGRZbbpTRtEY/view?usp=sharing)
 
+## Screenshots
+
+|![Movie Details](https://github.com/user-attachments/assets/287f8e6d-f912-4ec6-98f7-16ec52f183ac) |![Home Page](https://github.com/user-attachments/assets/abff24af-94ba-465d-92f3-303c1f252e27) |
+|:------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------:|
+|                                               Home                                               |                                            Detail                                            |
+
 
 ## Installation
 
